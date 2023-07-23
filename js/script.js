@@ -5,6 +5,21 @@
         tasks.push({content: newTaskContent,});
         render();
     };
+
+    const removeTask = (taskIndex) => {
+        tasks.splice(taskIndex, 1);
+        render();
+    };
+
+    const bindRemoveEvents = () => {
+        const removeButtons = document.querySelectorAll(".js-remove");
+
+        removeButtons.forEach((removeButton, taskIndex) => {
+            removeButton.addEventListener("click", () => {
+                removeTask(taskIndex);
+            });
+        });
+    };
    
     const render = () => {
         let taskListHTMLContent = "";
@@ -13,11 +28,18 @@
             taskListHTMLContent += `
         <li>
         ${task.content}
+        <button class="js-remove">
+        🗑
+        </button>
         </li>
         `;
         }
 
+      
+
         document.querySelector(".js-list").innerHTML = taskListHTMLContent;
+
+        bindRemoveEvents();
     };
 
     const onFormSubmit = (event) => {

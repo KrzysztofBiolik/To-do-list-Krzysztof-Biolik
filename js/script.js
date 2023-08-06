@@ -1,5 +1,6 @@
 {
     let tasks = [];
+    let hideDoneTasks = false;
 
     const addNewTask = (newTaskContent) => {
         tasks = [...tasks, { content: newTaskContent }];
@@ -46,15 +47,12 @@
         });
     };
 
-    const render = () => {
-        let taskListHTMLContent = "";
-
-        for (const task of tasks) {
-            taskListHTMLContent += `
+    const renderTasks = () => {
+        const taskToHTML = (task) => `
         <li 
-        class="tasks__item"
+        class="tasks__item ${task.done && hideDoneTasks ? "tasks__item--hidden" : ""}"
         >
-        <button class="tasks__button tasks__button--toggledone tasks__button--toggleDone js-toggleDone">
+        <button class="tasks__button tasks__button--toggledone js-toggleDone">
         ${task.done ? "✔" : ""}
         </button>
         <span class="tasks__Content ${task.done ? "tasks__Content--Done" : ""}">
@@ -65,36 +63,41 @@
         </button>
         </li>
         `;
-        };
-
-        document.querySelector(".js-list").innerHTML = taskListHTMLContent;
-
-        bindRemoveEvents();
-        bindToggleDoneEvents();
     };
 
-    const onFormSubmit = (event) => {
-        event.preventDefault();
+    const tasksElement = document.querySelector(".js-list");
+    tasksElement.innerHTML = tasks.map(taskToHTML.join(""));
+};
 
-        const newTaskElement = document.querySelector(".js-newTask");
-        const newTaskContent = newTaskElement.value.trim();
+const render = () => {
 
-        if (newTaskContent !== "") {
-            addNewTask(newTaskContent);
-            newTaskElement.value = "";
-        }
+    renderTasks();
+    bindRemoveEvents();
+    bindToggleDoneEvents();
+};
 
-        newTaskElement.focus();
-    };
+const onFormSubmit = (event) => {
+    event.preventDefault();
 
-    const init = () => {
-        render();
+    const newTaskElement = document.querySelector(".js-newTask");
+    const newTaskContent = newTaskElement.value.trim();
 
-        const form = document.querySelector(".js-form");
+    if (newTaskContent !== "") {
+        addNewTask(newTaskContent);
+        newTaskElement.value = "";
+    }
 
-        form.addEventListener("submit", onFormSubmit);
-    };
+    newTaskElement.focus();
+};
 
-    init();
+const init = () => {
+    render();
+
+    const form = document.querySelector(".js-form");
+
+    form.addEventListener("submit", onFormSubmit);
+};
+
+init();
 
 }

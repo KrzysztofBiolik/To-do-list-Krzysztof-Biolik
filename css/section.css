@@ -1,11 +1,25 @@
-.section{
+.section {
     background-color: white;
     margin: 10px 0;
 }
 
-.section__header{
-font-size: 20px;    
-padding: 20px;
-margin: 0;
-border-bottom: 1px solid #ddd;
+.section__header {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    grid-gap: 20px;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+    .section__header {
+        grid-template-columns: 1fr;
+    }
+}
+
+.section__title {
+    margin: 0;
+    font-size: 20px
 }

@@ -6,6 +6,11 @@
 .section__header {
     border-bottom: 1px solid #ddd;
     padding: 20px;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+    grid-gap: 20px;
 }
 
 .section__title {

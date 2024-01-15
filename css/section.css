@@ -13,6 +13,12 @@
     grid-gap: 20px;
 }
 
+@media (max-width: 767px) {
+    .section__header {
+        grid-template-columns: 1fr;
+    }
+}
+
 .section__title {
     margin: 0;
     font-size: 20px

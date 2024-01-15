@@ -1,6 +1,5 @@
 {
     let tasks = [];
-    let hideDoneTasks = false;
 
     const addNewTask = (newTaskContent) => {
         tasks = [...tasks, { content: newTaskContent }];
@@ -49,9 +48,7 @@
 
     const renderTasks = () => {
         const taskToHTML = (task) => `
-        <li 
-        class="tasks__item ${task.done && hideDoneTasks ? "tasks__item--hidden" : ""}"
-        >
+        <li class="tasks__item">
         <button class="tasks__button tasks__button--toggledone js-toggleDone">
         ${task.done ? "✔" : ""}
         </button>
@@ -63,10 +60,10 @@
         </button>
         </li>
         `;
-    };
+    
 
     const tasksElement = document.querySelector(".js-list");
-    tasksElement.innerHTML = tasks.map(taskToHTML.join(""));
+    tasksElement.innerHTML = tasks.map(taskToHTML).join("");
 };
 
 const render = () => {
